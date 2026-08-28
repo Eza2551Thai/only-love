@@ -1,0 +1,694 @@
+/* ========================================================
+   DARK ROMANCE DESIGN SYSTEM CONFIGURATION
+   ======================================================== */
+:root {
+  /* Primary background: eliminates stark brightness across all pages */
+  --bg-main: #120E11;
+  
+  /* Elevates structural cards with a warm velvet undertone */
+  --bg-card: #1E161D;
+  
+  /* Deep wine red for romantic CTA emphasis */
+  --accent-wine: #7A2234;
+  
+  /* Soft dusky rose for interactive hovers and decorative lines */
+  --accent-rose: #B85B73;
+  
+  /* Muted warm gold for high-end accent details and subtle borders */
+  --border-gold: #C5A059;
+  
+  /* Warm cream text reduces eye strain and maintains vintage mood */
+  --text-main: #F4ECEC;
+  
+  /* Muted secondary text to maintain clear visual hierarchy */
+  --text-muted: #9E8B94;
+  
+  /* Romantic typography pairing */
+  --font-heading: 'Playfair Display', Cormorant Garamond, serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-thai: 'Athiti', sans-serif;
+  
+  /* Radial glow overlay for soft ambient depth */
+  --ambient-glow: radial-gradient(circle at 50% 20%, rgba(122, 34, 52, 0.18) 0%, rgba(18, 14, 17, 0) 70%);
+}
+
+/* ========================================================
+   BASE RESET & BODY
+   ======================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@font-face {
+  font-family: 'Athiti';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../font/Athiti-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Athiti';
+  font-style: normal;
+  font-weight: 800;
+  src: url('../font/Athiti-Bold.ttf') format('truetype');
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  background-color: var(--bg-main);
+  background-image: var(--ambient-glow);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* ========================================================
+   MUSIC BUTTON (Global)
+   ======================================================== */
+#musicBtn {
+  position: fixed; top: 16px; right: 16px; z-index: 1000;
+  background: rgba(30, 22, 29, 0.85);
+  border: 1px solid var(--accent-rose);
+  border-radius: 50%;
+  width: 46px; height: 46px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 14px rgba(122, 34, 52, 0.3);
+  transition: transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+  color: var(--text-main);
+}
+#musicBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(184, 91, 115, 0.4);
+}
+#musicBtn.playing { animation: spin 4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.dark-music-btn { border-color: var(--border-gold) !important; background: rgba(18, 14, 17, 0.9) !important; }
+
+/* ========================================================
+   SCREEN 1: THE QUESTION (Dark Romance)
+   ======================================================== */
+#screen1 {
+  position: relative;
+  height: 100dvh;
+  min-height: 100dvh;
+  background-color: var(--bg-main);
+  background-image: var(--ambient-glow);
+  display: flex; justify-content: center; align-items: center;
+  font-family: var(--font-body);
+  color: var(--text-main);
+  overflow: hidden;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  padding: 20px;
+}
+
+/* Particles */
+#particles { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.particle { position: absolute; bottom: -40px; font-size: 1.3rem; animation: floatParticle linear infinite; opacity: 0; }
+@keyframes floatParticle {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(-110dvh) rotate(30deg); opacity: 0; }
+}
+
+/* Question Card */
+.q-card {
+  position: relative; z-index: 10;
+  background: rgba(30, 22, 29, 0.92); backdrop-filter: blur(18px);
+  border: 1px solid rgba(184, 91, 115, 0.25); border-radius: 16px;
+  padding: clamp(24px, 5vw, 36px) clamp(20px, 5vw, 40px);
+  max-width: 400px; width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(122, 34, 52, 0.15);
+  animation: cardIn 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+  overflow: visible;
+}
+.q-card::-webkit-scrollbar { width: 0px; background: transparent; }
+
+@keyframes cardIn { from { opacity: 0; transform: scale(0.7) translateY(40px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3) translateY(50px); }
+  50% { opacity: 1; transform: scale(1.05) translateY(-10px); }
+  70% { transform: scale(0.95) translateY(5px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes bounceInText {
+  0% { opacity: 0; transform: translateY(20px); }
+  50% { opacity: 1; transform: translateY(-5px); }
+  70% { transform: translateY(2px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceUp {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+.bounce-up { animation: bounceUp 0.6s ease; }
+
+/* Sparkle Row */
+.sparkle-row { font-size: 1.3rem; letter-spacing: 6px; margin-bottom: 10px; animation: sparkleFloat 2s ease-in-out infinite; }
+@keyframes sparkleFloat { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-5px); } }
+
+/* Question Text */
+#question {
+  font-family: var(--font-thai); font-weight: 800;
+  font-size: clamp(1.2rem, 5vw, 1.7rem);
+  color: var(--accent-rose);
+  margin-bottom: 18px; line-height: 1.4; min-height: 2.8em;
+  transition: opacity 0.4s;
+}
+#question .msg-box {
+  display: inline-block; border: 2px dashed var(--accent-wine);
+  border-radius: 12px; padding: 12px 20px;
+  background: rgba(122, 34, 52, 0.15);
+  font-size: 0.88em; line-height: 1.6;
+}
+
+/* GIF Wrapper */
+.gif-wrap { 
+  width: clamp(160px, 45vw, 220px);
+  height: clamp(160px, 45vw, 220px); 
+  margin: 0 auto 20px; border-radius: 16px; overflow: hidden;
+  border: 2px solid rgba(184, 91, 115, 0.3);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(122, 34, 52, 0.2);
+  background: var(--bg-card); position: relative; 
+}
+.gif-wrap img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.35s ease; }
+.gif-wrap img.fade-out { opacity: 0; }
+
+/* Buttons Container */
+#q-btnContainer { margin-top: 6px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.q-btn {
+  font-family: var(--font-thai); font-weight: 800;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  padding: 12px clamp(16px, 4vw, 28px);
+  border: none; border-radius: 50px; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative; overflow: hidden;
+}
+.q-btn::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.1); opacity: 0; transition: opacity 0.2s; }
+.q-btn:hover { transform: translateY(-3px) scale(1.05); }
+.q-btn:hover::after { opacity: 1; }
+.q-btn:active { transform: scale(0.95); animation: buttonBounce 0.2s ease; }
+@keyframes buttonBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+/* Button Variants */
+.q-yes {
+  background: linear-gradient(135deg, var(--accent-wine), #9A2A42);
+  color: var(--text-main);
+  box-shadow: 0 6px 20px rgba(122, 34, 52, 0.5);
+  border: 1px solid var(--accent-rose);
+}
+.q-no {
+  background: rgba(158, 139, 148, 0.2);
+  color: var(--text-muted);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border: 1px solid rgba(158, 139, 148, 0.3);
+}
+.q-love {
+  background: linear-gradient(135deg, var(--accent-wine), #B85B73);
+  color: var(--text-main);
+  font-size: 1.3rem !important; padding: 16px 44px !important;
+  box-shadow: 0 8px 28px rgba(184, 91, 115, 0.5);
+  border: 1px solid var(--border-gold);
+  animation: lovePulse 1s ease-in-out infinite;
+}
+@keyframes lovePulse {
+  0%,100% { box-shadow: 0 8px 28px rgba(184, 91, 115, 0.5); transform: scale(1); }
+  50% { box-shadow: 0 12px 40px rgba(184, 91, 115, 0.7); transform: scale(1.04); }
+}
+.q-next {
+  background: linear-gradient(135deg, var(--accent-rose), var(--accent-wine));
+  color: var(--text-main);
+  box-shadow: 0 4px 16px rgba(184, 91, 115, 0.4);
+  font-size: 1.1rem; padding: 14px 30px;
+  border: 1px solid var(--accent-rose);
+}
+
+/* Dots Progress */
+#dots { display: flex; justify-content: center; gap: 6px; margin-top: 14px; min-height: 14px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(158, 139, 148, 0.3); transition: background 0.3s, transform 0.3s; }
+.dot.active { background: var(--accent-rose); transform: scale(1.3); box-shadow: 0 0 8px rgba(184, 91, 115, 0.5); }
+
+/* Card Wiggle */
+@keyframes wiggleCard { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-2deg); } 75% { transform: rotate(2deg); } }
+.q-card.wiggle { animation: wiggleCard 0.35s ease; }
+
+/* ========================================================
+   SCREEN 2: GRADUATE STORYBOOK (Dark Romance)
+   ======================================================== */
+#screen2 {
+  display: none;
+  position: relative;
+  height: 100dvh;
+  min-height: 100dvh;
+  background-color: var(--bg-main);
+  background-image: var(--ambient-glow);
+  font-family: var(--font-body);
+  color: var(--text-main);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  overflow: hidden;
+}
+
+.storybook-wrapper {
+  width: min(600px, 100%);
+  margin: auto;
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid rgba(184, 91, 115, 0.2);
+  border-radius: 16px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(122, 34, 52, 0.1);
+  max-height: 85dvh;
+  overflow-y: auto;
+  cursor: default;
+  transition: transform 0.2s;
+  position: relative;
+  animation: cardIn 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.storybook-wrapper:hover { transform: translateY(-5px); }
+
+.card-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+}
+.envelope.open .card-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Storybook Header */
+.storybook-header h1 {
+  font-family: var(--font-thai);
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: var(--accent-rose);
+  margin-bottom: 10px;
+  animation: cuteWiggle 3s ease-in-out infinite;
+}
+@keyframes cuteWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  75% { transform: rotate(-1deg); }
+}
+
+.congrats {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: var(--border-gold);
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  font-family: var(--font-heading);
+  animation: cuteBounce 2s ease-in-out infinite;
+}
+@keyframes cuteBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Profile Image */
+.profile-img {
+  width: clamp(150px, 40vw, 250px);
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid var(--accent-rose);
+  margin-bottom: 30px;
+  box-shadow: 0 6px 24px rgba(122, 34, 52, 0.4), 0 0 15px rgba(184, 91, 115, 0.2);
+  animation: cuteFloat 4s ease-in-out infinite;
+}
+@keyframes cuteFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(1deg); }
+  50% { transform: translateY(-10px) rotate(0deg); }
+  75% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+/* Message Text */
+.message p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: var(--text-main);
+  font-weight: 400;
+  animation: bounceInText 0.6s ease-out;
+  animation-fill-mode: both;
+}
+.message p:nth-child(1) { animation-delay: 0.3s; }
+.message p:nth-child(2) { animation-delay: 0.5s; }
+.message p:nth-child(3) { animation-delay: 0.7s; }
+
+.boldtext {
+  font-family: var(--font-thai);
+  font-weight: 800;
+  color: var(--accent-rose);
+}
+
+.signature {
+  font-style: italic;
+  color: var(--border-gold);
+  font-weight: 700;
+  font-family: var(--font-heading);
+}
+
+.date {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 20px 0 10px;
+  font-weight: 600;
+  font-family: var(--font-thai);
+  letter-spacing: 1px;
+}
+
+.from {
+  font-size: 1rem;
+  color: var(--accent-rose);
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-family: var(--font-thai);
+}
+
+/* Gift Button */
+.gift-btn {
+  background: linear-gradient(135deg, var(--accent-wine), #9A2A42);
+  color: var(--text-main);
+  border: 1px solid var(--accent-rose);
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(122, 34, 52, 0.4);
+  animation: cutePulse 2s ease-in-out infinite;
+  font-family: var(--font-thai);
+}
+@keyframes cutePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.gift-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 28px rgba(184, 91, 115, 0.5);
+}
+
+/* Footer */
+.footer {
+  margin-top: 40px;
+  font-size: 0.82rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  animation: fadeIn 3s ease both;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 0.5; } }
+
+/* Ribbon */
+.ribbon {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 20;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-wine), var(--border-gold), var(--accent-wine));
+  background-size: 200% 100%;
+  animation: ribbonSlide 3s linear infinite;
+}
+@keyframes ribbonSlide { 0% { background-position: 0% 0%; } 100% { background-position: 200% 0%; } }
+
+/* ========================================================
+   SCREEN 3: LOVE LETTER (Dark Romance)
+   ======================================================== */
+#screen3 {
+  display: none;
+  position: relative;
+  height: 100dvh;
+  min-height: 100dvh;
+  background-color: var(--bg-main);
+  background-image: var(--ambient-glow);
+  font-family: var(--font-body);
+  color: var(--text-main);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.letter-envelope {
+  position: relative;
+  width: min(500px, 90vw);
+  animation: envelopeFloat 3s ease-in-out infinite;
+}
+@keyframes envelopeFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+
+.envelope-body {
+  background: linear-gradient(145deg, var(--bg-card), #251C23);
+  border: 1px solid rgba(184, 91, 115, 0.25);
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(122, 34, 52, 0.15);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s;
+}
+.envelope-body:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(184, 91, 115, 0.2);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(145deg, var(--bg-card), #2A1F27);
+  border-bottom: 1px solid rgba(184, 91, 115, 0.2);
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  z-index: 10;
+  transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+  transform-origin: top center;
+}
+.envelope-body.opened .envelope-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 20px; left: 50%;
+  transform: translateX(-50%);
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, var(--accent-wine), #9A2A42);
+  border: 2px solid var(--accent-rose);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 12px rgba(122, 34, 52, 0.5);
+  z-index: 15;
+  transition: transform 0.4s, opacity 0.4s;
+}
+.envelope-body.opened .envelope-seal {
+  transform: scale(0) rotate(180deg);
+  opacity: 0;
+}
+
+.envelope-content {
+  padding: 40px 30px 30px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+.envelope-body.opened .envelope-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Letter Date */
+.letter-date {
+  font-family: var(--font-heading);
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
+  color: var(--border-gold);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+/* Letter Greeting */
+.letter-greeting {
+  font-family: var(--font-thai);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  color: var(--accent-rose);
+  margin-bottom: 20px;
+  animation: bounceInText 0.6s ease-out;
+  animation-fill-mode: both;
+  animation-delay: 0.5s;
+}
+
+/* Letter Body */
+.letter-body {
+  font-family: var(--font-thai);
+  font-weight: 300;
+  font-size: clamp(0.95rem, 2.8vw, 1.15rem);
+  line-height: 1.9;
+  color: var(--text-main);
+  text-align: left;
+  margin-bottom: 24px;
+  animation: bounceInText 0.6s ease-out;
+  animation-fill-mode: both;
+  animation-delay: 0.7s;
+}
+.letter-body p {
+  margin-bottom: 14px;
+  text-indent: 2em;
+}
+
+/* Letter Signature */
+.letter-signature {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+  color: var(--accent-rose);
+  margin-top: 24px;
+  animation: bounceInText 0.6s ease-out;
+  animation-fill-mode: both;
+  animation-delay: 0.9s;
+  font-style: italic;
+}
+
+/* Letter P.S. */
+.letter-ps {
+  font-family: var(--font-thai);
+  font-weight: 300;
+  font-size: clamp(0.8rem, 2.2vw, 0.95rem);
+  color: var(--border-gold);
+  margin-top: 16px;
+  font-style: italic;
+  animation: bounceInText 0.6s ease-out;
+  animation-fill-mode: both;
+  animation-delay: 1.1s;
+}
+
+/* Envelope Hint */
+.envelope-hint {
+  position: absolute;
+  bottom: 16px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-thai);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+  animation: pulseHint 2s ease-in-out infinite;
+}
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(-3px); }
+}
+.envelope-body.opened .envelope-hint { display: none; }
+
+/* Letter Roses */
+.letter-roses {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.letter-roses.top-left { top: 10px; left: 10px; transform: rotate(-15deg); }
+.letter-roses.top-right { top: 10px; right: 10px; transform: rotate(15deg); }
+.letter-roses.bottom-left { bottom: 10px; left: 10px; transform: rotate(15deg); }
+.letter-roses.bottom-right { bottom: 10px; right: 10px; transform: rotate(-15deg); }
+
+/* Back Button */
+.letter-back-btn {
+  margin-top: 20px;
+  background: none;
+  border: 1px solid rgba(184, 91, 115, 0.4);
+  color: var(--accent-rose);
+  font-family: var(--font-thai);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  animation: fadeIn 2s ease both;
+  animation-delay: 1.5s;
+}
+.letter-back-btn:hover {
+  background: rgba(184, 91, 115, 0.15);
+  border-color: var(--accent-rose);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 91, 115, 0.3);
+}
+
+/* Floating Hearts */
+.letter-hearts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  font-size: 1.2rem;
+  opacity: 0;
+  animation: floatHeart linear infinite;
+}
+@keyframes floatHeart {
+  0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.2; }
+  100% { transform: translateY(-110dvh) rotate(25deg) scale(1.1); opacity: 0; }
+}
+
+/* Burst Hearts */
+.burst-heart {
+  position: fixed; font-size: 1.6rem; pointer-events: none; z-index: 9999;
+  animation: burstAnim 1s ease forwards;
+}
+@keyframes burstAnim {
+  0% { transform: translate(-50%,-50%) scale(0); opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; }
+}
+
+/* ========================================================
+   RESPONSIVE TWEAKS
+   ======================================================== */
+@media (max-width: 680px) {
+  #screen1 { align-items: center; padding: 10px; }
+  .q-card { width: min(92vw, 400px); border-radius: 12px; padding: 18px 14px; max-height: calc(100dvh - 20px); overflow-y: auto; }
+  .sparkle-row { font-size: 1.1rem; letter-spacing: 4px; }
+  #q-btnContainer { gap: 10px; }
+  .q-btn { width: 100%; min-width: 0; }
+  #musicBtn { top: 8px; right: 8px; width: 40px; height: 40px; font-size: 1.05rem; }
+  .storybook-wrapper { padding: 20px 15px; max-height: calc(100dvh - 40px); overflow-y: auto; }
+}
+
+@media (min-width: 1440px) {
+  .q-card { max-width: 500px; padding: clamp(28px, 4vw, 44px); }
+  .q-btn { font-size: clamp(1rem, 1.2vw, 1.2rem); }
+}
+
+@media (max-width: 380px) {
+  .envelope-content { padding: 30px 16px 20px; }
+  .letter-body { font-size: 0.9rem; }
+  #musicBtn { width: 38px; height: 38px; font-size: 1rem; }
+}
