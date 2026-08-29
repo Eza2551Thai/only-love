@@ -47,7 +47,7 @@ only-love-main/
 
 ---
 
-## 🎨 ธีม (LDR Modern v7.2)
+## 🎨 ธีม (LDR Modern v8.1)
 
 ### สี
 | ตัวแปร | สี | ใช้สำหรับ |

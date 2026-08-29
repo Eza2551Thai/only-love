@@ -1,5 +1,5 @@
 /* =============================================
-   LDR MODERN — JavaScript (v7.2 Final)
+   LDR MODERN — JavaScript (v8.1 Proportional Scale)
    ============================================= */
 
 /* --- CONSTANTS --- */
